@@ -1,3 +1,4 @@
+import { databaseDiagnostic } from "./database-diagnostic.mjs";
 import { createServer } from "node:http";
 import { httpServerHandler } from "cloudflare:node";
 import { env } from "cloudflare:workers";
@@ -17,6 +18,11 @@ const server = createServer((request, response) => {
 const http = httpServerHandler(server);
 export default {
   async fetch(request, bindings, context) {
+    if (new URL(request.url).pathname === "/api/diagnostics/database") {
+      if (request.method !== "POST")
+        return new Response("Method not allowed", { status: 405 });
+      return databaseDiagnostic(request, bindings);
+    }
     if (
       new URL(request.url).pathname === "/api/ready" &&
       request.method === "GET"
