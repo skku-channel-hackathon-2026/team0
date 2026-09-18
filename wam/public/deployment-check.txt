@@ -1,1 +1,1 @@
-skku-team0-pr-deployment-check-2026-09-19
+skku-team0-automatic-ci-deployment-2026-09-19
