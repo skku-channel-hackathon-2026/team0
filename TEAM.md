@@ -31,3 +31,8 @@ DB 변경은 `cloudflare/migrations/`의 SQL로 관리하고, 원격 적용은 �
 준비위 배포 점검 파일: [deployment-check.txt](https://skku-team0.skku-hackathon-2026-b.workers.dev/resource/wam/tutorial/deployment-check.txt)
 
 이 파일의 값 `skku-team0-automatic-ci-deployment-2026-09-19`는 PR 변경이 실제 배포 파일에 반영됐는지 확인하기 위한 표식입니다.
+
+## DB 저장·조회 검증
+
+[PR #3](https://github.com/skku-channel-hackathon-2026/team0/pull/3)에서 실제 앱 런타임 → 원격 D1 저장·조회·삭제와 동시 요청을 검증했습니다. 원격 DB의 잔여 테스트 행도 0건으로 확인했습니다. Desk UI 저장 기능 검증과는 별개입니다.
+서명 인증이 필요한 운영자 진단 방법은 [DB 진단 안내](docs/database-diagnostic.md)를 참고하세요. 다른 팀에는 이 진단 경로가 추가되어 있지 않습니다.
