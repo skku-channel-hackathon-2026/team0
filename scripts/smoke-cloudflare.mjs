@@ -77,6 +77,7 @@ for (const response of await Promise.all([
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), {
     ok: true,
+    migrationApplied: true,
     written: true,
     read: true,
     cleaned: true,
