@@ -4,6 +4,11 @@ import { getDatabase } from "./database.js";
 /** Isolated diagnostic fixture: never reads or deletes existing application rows. */
 export async function probeDatabase() {
   const db = getDatabase();
+  const migration = await db
+    .prepare("SELECT value FROM deployment_migration_probe WHERE id = ?")
+    .bind("automatic-migration")
+    .first<{ value: string }>();
+  const migrationApplied = migration?.value === "main-ci-before-worker-deploy";
   const id = `diagnostic:${randomUUID()}`;
   const value = JSON.stringify({ probe: "team0", nonce: randomUUID() });
   let written = false;
@@ -28,5 +33,11 @@ export async function probeDatabase() {
         .bind(id)
         .first()) === null;
   }
-  return { ok: written && read && cleaned, written, read, cleaned };
+  return {
+    ok: migrationApplied && written && read && cleaned,
+    migrationApplied,
+    written,
+    read,
+    cleaned,
+  };
 }

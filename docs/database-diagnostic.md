@@ -33,3 +33,5 @@ HMAC-SHA256 hex 서명해 `x-diagnostic-signature`에 넣고, 밀리초 시각�
 - attribution: 운영자 진단 요청이며 고객 또는 매니저 메시지 발송 없음.
 - resultSemantics: ok=true는 저장·읽은 값 일치·삭제 후 부재가 모두 검증된 terminal/applied 결과. ok=false,state=unverified 또는 transport failure는 unknown이며 운영자가 잔여 테스트 행을 확인.
 - agentConsumers: ALF/CoS 모두 not applicable; 운영자 키 기반 인프라 검증은 에이전트 제품 진입점이 아님. effect=not applicable, trustedContext/authorityAndConfirmation/publicWrapper/implementationHandoff/qaHandoff=None, blockers=[].
+
+자동 마이그레이션 검증: `0002_automatic_migration_probe.sql`의 새 테이블과 표식을 읽어 `migrationApplied: true`도 확인합니다. 이 표식은 재실행 검증을 위해 유지하며, 임시 `diagnostic:` 데이터만 요청 후 삭제합니다.
